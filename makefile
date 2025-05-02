@@ -101,16 +101,16 @@ obj/lang/en: obj/lang
 	    ${MKDIR} obj/lang/en;   \
 	fi
 
-clean_obj/lang/en:
-	@if [ -d "obj/lang/en" ];  \
-	then                       \
-	    ${RMDIR} obj/lang/en;  \
-	fi
-
 obj/lang: obj
 	@if [ ! -d "obj/lang" ]; \
 	then                     \
 	    ${MKDIR} obj/lang;   \
+	fi
+
+clean_obj/lang/en:
+	@if [ -d "obj/lang/en" ];  \
+	then                       \
+	    ${RMDIR} obj/lang/en;  \
 	fi
 
 clean_obj/lang:
@@ -122,14 +122,14 @@ clean_obj/lang:
 obj/main.o: src/main.c obj src/lang/en/msg.h
 	$(CC) $(CFLAGS) -c -o $@ src/main.c
 
+obj/lang/en/msg.o: src/lang/en/msg.c obj/lang/en src/lang/en/msg.h
+	$(CC) $(CFLAGS) -c -o $@ src/lang/en/msg.c
+
 clean_obj/main.o:
 	@if [ -f "obj/main.o" ]; \
 	then                     \
 	    ${RM} obj/main.o;    \
 	fi
-
-obj/lang/en/msg.o: src/lang/en/msg.c obj/lang/en src/lang/en/msg.h
-	$(CC) $(CFLAGS) -c -o $@ src/lang/en/msg.c
 
 clean_obj/lang/en/msg.o:
 	@if [ -f "obj/lang/en/msg.o" ]; \
