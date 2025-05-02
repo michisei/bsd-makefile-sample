@@ -49,12 +49,22 @@ run: $(exec_out)
 # 		then ${RMDIR} ${@:clean_%=%}; \
 # 	fi
 
+clean_bin:
+	@if [ -d "bin" ];      \
+	    then ${RMDIR} bin; \
+	fi
+
+clean_obj:
+	@if [ -d "obj" ];      \
+	    then ${RMDIR} obj; \
+	fi
+
 clean_${exec_out}: 
 	@if [ -f "${exec_out}" ]; \
 		then ${RM} ${exec_out}; \
 	fi
 
-clean: clean_${exec_out} ${clean_obj_files} ${clean_obj_dirs}
+clean: clean_${exec_out} clean_bin ${clean_obj_files} ${clean_obj_dirs} clean_obj
 
 .c.o:
 	$(CC) $(CFLAGS) -c -o $@ $<
